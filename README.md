@@ -1,6 +1,6 @@
 # Openshift 3.11 custom Grafana Dashboards
 
-Due to the readonly grafan with Openshift 3.11 CMO,This example creates a custom Grafana instance,It uses "OAuth" token to login Grafana,
+Due to the readonly grafan with Openshift 3.11 CMO, this example creates a custom Grafana instance and It uses "OAuth" token to login Grafana,
 which was inspired by "https://github.com/openshift/origin/tree/master/examples/grafana"
 
 ## Available Dashboards
