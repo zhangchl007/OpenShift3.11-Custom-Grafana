@@ -39,6 +39,10 @@ config_etcd_monitoring.sh
 ```
 for more info ```./setup-grafana.sh -h```
 
+![dbconn](https://github.com/zhangchl007/quay/blob/master/img/db-connection.png)
+
+![dbconn](https://github.com/zhangchl007/quay/blob/master/img/db-connection.png)
+
 
 #### Pull standalone docker grafana instance
 to build standalone docker instance see
