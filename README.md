@@ -1,7 +1,7 @@
 # Openshift 3.11 custom Grafana Dashboards
 
 Due to the readonly grafan with Openshift 3.11 CMO, this example creates a custom Grafana instance and It uses "OAuth" token to login Grafana,
-which was inspired by "https://github.com/openshift/origin/tree/master/examples/grafana"
+which was inspired by "origin grafana example"
 
 ## Available Dashboards
 - k8s-compute-resources-cluster
@@ -26,7 +26,7 @@ data:
           openshift.io/component: etcd
           openshift.io/control-plane: "true"
 ```
-on the master server,execute the script
+Execute the script below on OpenShift Master server
 
 ```
 config_etcd_monitoring.sh
@@ -35,7 +35,8 @@ config_etcd_monitoring.sh
 
 ### Run the deployment script
 ``` 
-./setup-grafana.sh -n <any_datasorce_name> 
+./setup-grafana.sh -n prometheus
+
 ```
 for more info ```./setup-grafana.sh -h```
 
@@ -44,7 +45,9 @@ for more info ```./setup-grafana.sh -h```
 ![gui](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img2.png)
 
 # Grafana data persistance
-Please following the steps if nfs provisoner is used for OpenShift
+
+Suppose nfs provisoner is using for your OCP Cluster
+
 ```
 cat <<EOF>  grafana-db.yaml
 kind: PersistentVolumeClaim
@@ -59,6 +62,7 @@ spec:
       storage: 20Gi
   storageClassName: managed-nfs-storage
 EOF
+
 oc create -f grafana-db.yaml
 
 oc set volume deploy grafana  --add --overwrite --name=grafana-data --type=pvc --claim-name=grafana-data
