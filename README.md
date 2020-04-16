@@ -43,6 +43,27 @@ for more info ```./setup-grafana.sh -h```
 
 ![gui](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img2.png)
 
+# Grafana data persistance
+Please following the steps if nfs provisoner is used for OpenShift
+```
+cat <<EOF>  grafana-db.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: grafana-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: managed-nfs-storage
+EOF
+oc create -f grafana-db.yaml
+
+oc set volume deploy grafana  --add --overwrite --name=grafana-data --type=pvc --claim-name=grafana-data
+
+````
 
 #### Pull standalone docker grafana instance
 to build standalone docker instance see
