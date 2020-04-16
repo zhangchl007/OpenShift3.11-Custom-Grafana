@@ -69,10 +69,6 @@ oc set volume deploy grafana  --add --overwrite --name=grafana-data --type=pvc -
 
 ````
 
-#### Pull standalone docker grafana instance
-to build standalone docker instance see
-https://github.com/mrsiano/grafana-ocp
-
 #### Resources 
-- example video https://youtu.be/srCApR_J3Os
+- grafana example https://github.com/openshift/origin/tree/master/examples/grafana
 - deploy openshift prometheus: https://docs.openshift.com/container-platform/3.11/install_config/prometheus_cluster_monitoring.html
