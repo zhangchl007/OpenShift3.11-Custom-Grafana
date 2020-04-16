@@ -39,9 +39,9 @@ config_etcd_monitoring.sh
 ```
 for more info ```./setup-grafana.sh -h```
 
-![dbconn](https://github.com/zhangchl007/quay/blob/master/img/db-connection.png)
+![install](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img1.png)
 
-![dbconn](https://github.com/zhangchl007/quay/blob/master/img/db-connection.png)
+![gui](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img2.png)
 
 
 #### Pull standalone docker grafana instance
