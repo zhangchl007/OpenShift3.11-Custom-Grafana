@@ -1,4 +1,4 @@
-#Openshift 3.11 custom Grafana Dashboards
+# Openshift 3.11 custom Grafana Dashboards
 
 Due to the readonly grafan with Openshift 3.11 CMO,This example creates a custom Grafana instance,It uses "OAuth" token to login Grafana,
 which was inspired by "https://github.com/openshift/origin/tree/master/examples/grafana"
@@ -47,4 +47,3 @@ https://github.com/mrsiano/grafana-ocp
 #### Resources 
 - example video https://youtu.be/srCApR_J3Os
 - deploy openshift prometheus: https://docs.openshift.com/container-platform/3.11/install_config/prometheus_cluster_monitoring.html
-# Openshift3.11-Custom-Grafana
