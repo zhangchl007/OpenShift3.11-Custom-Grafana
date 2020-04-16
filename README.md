@@ -13,7 +13,7 @@ which was inspired by "https://github.com/openshift/origin/tree/master/examples/
 
 istio dashboard will be added soon
 
-# Add etcd service monitoring for Prometheus Operator
+# Add etcd servicemonitor for Prometheus Operator
 ```
 oc -n openshift-monitoring edit configmap cluster-monitoring-config
 
