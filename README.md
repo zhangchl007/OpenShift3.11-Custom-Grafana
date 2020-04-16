@@ -40,8 +40,6 @@ config_etcd_monitoring.sh
 ```
 for more info ```./setup-grafana.sh -h```
 
-![install](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img1.png)
-
 ![gui](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img2.png)
 
 # Grafana data persistance
