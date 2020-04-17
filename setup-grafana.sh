@@ -36,7 +36,7 @@ get::namespace(){
     prometheus_namespace="openshift-monitoring"
 }
 
-# deploy node exporter
+# import grafana dashboards
 dashboard::importer(){
 dashboard_file=$1
 sed -i.bak "s/Xs/${graph_granularity}/" "${dashboard_file}"
