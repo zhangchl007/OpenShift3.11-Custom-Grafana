@@ -15,7 +15,7 @@ istio dashboard will be added soon
 
 # Add etcd servicemonitor for Prometheus Operator
 
-This part would be complete by the script: deploy_etcd_monitoring.sh
+This part would be also completed by the script: deploy_etcd_monitoring.sh
 ```
 oc -n openshift-monitoring edit configmap cluster-monitoring-config
 
