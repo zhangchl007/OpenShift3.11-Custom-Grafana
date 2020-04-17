@@ -54,7 +54,7 @@ mv "${dashboard_file}.bak" "${dashboard_file}"
 oc new-project grafana
 oc process -f "${yaml}" |oc create -f -
 oc rollout status deployment/grafana
-grafana_host="${protocol}$( oc get route grafana -o jsonpath='{.spec.host}' )"
+grafana_host="${protocol}$( oc get route grafana -o jsonpath='{.spec.host}' -n grafana)"
 until [ `curl --insecure -H "Content-Type: application/json" -u admin:admin "${grafana_host}/metrics" |grep ^go_goroutines | wc -l` -eq 1 ]
 do
   echo "Waiting for grafana readiness!"
