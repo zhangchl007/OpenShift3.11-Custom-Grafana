@@ -8,8 +8,8 @@
     "slug": "k8s-use-method-node",
     "url": "/d/4ac4f123aae0ff6dbaf4f4f66120033b/k8s-use-method-node",
     "expires": "0001-01-01T00:00:00Z",
-    "created": "2020-04-16T11:46:35Z",
-    "updated": "2020-04-16T11:46:35Z",
+    "created": "2020-04-17T08:50:14Z",
+    "updated": "2020-04-17T08:50:14Z",
     "updatedBy": "Anonymous",
     "createdBy": "Anonymous",
     "version": 1,
@@ -18,7 +18,8 @@
     "folderId": 0,
     "folderTitle": "General",
     "folderUrl": "",
-    "provisioned": true
+    "provisioned": false,
+    "provisionedExternalId": ""
   },
   "dashboard": {
     "annotations": {
