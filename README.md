@@ -1,6 +1,6 @@
 # Openshift 3.11 custom Grafana Dashboards
 
-Due to the readonly grafan with Openshift 3.11 CMO, this example creates a custom Grafana instance and It uses "OAuth" token to login Grafana,
+Due to the readonly grafana with Openshift 3.11 CMO, this example creates a custom Grafana instance and It uses "OAuth" token to login Grafana,
 which was inspired by "origin grafana example"
 
 ## Available Dashboards
@@ -10,6 +10,8 @@ which was inspired by "origin grafana example"
 - k8s-use-method-cluster
 - k8s-use-method-node
 - OpenShift-Cluster-Overview
+
+grafana image: docker pull docker.io/grafana/grafana:6.5.0
 
 istio dashboard will be added soon
 
