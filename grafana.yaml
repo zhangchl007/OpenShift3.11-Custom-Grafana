@@ -144,7 +144,7 @@ objects:
             cpu: 100m
             memory: 100Mi
           volumeMounts:
-          - mountPath: "/root/go/src/github.com/grafana/grafana/data"
+          - mountPath: "/var/lib/grafana"
             name: grafana-data
           - mountPath: "/usr/share/grafana/conf"
             name: grafanaconfig
