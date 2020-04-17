@@ -1,6 +1,6 @@
 #!/bin/bash
 datasource_name=''
-prometheus_namespace=''
+prometheus_namespace="openshift-monitoring"
 sa_reader=''
 graph_granularity=''
 yaml=''
@@ -10,7 +10,7 @@ while getopts 'n:s:p:g:y' flag; do
   case "${flag}" in
     n) datasource_name="${OPTARG}" ;;
     s) sa_reader="${OPTARG}" ;;
-    p) prometheus_namespace="${OPTARG}" ;;
+    p) grafana_namespace="${OPTARG}" ;;
     g) graph_granularity="${OPTARG}" ;;
     y) yaml="${OPTARG}" ;;
     *) error "Unexpected option ${flag}" ;;
@@ -33,7 +33,7 @@ exit 1
 }
 
 get::namespace(){
-    prometheus_namespace="openshift-monitoring"
+    grafana_namespace="grafana"
 }
 
 # import grafana dashboards
@@ -46,20 +46,21 @@ mv "${dashboard_file}.bak" "${dashboard_file}"
 }
 [[ -n ${datasource_name} ]] || usage
 [[ -n ${sa_reader} ]] || sa_reader="prometheus-k8s"
-[[ -n ${prometheus_namespace} ]] || get::namespace
+[[ -n ${grafana_namespace} ]] || get::namespace
 [[ -n ${graph_granularity} ]]  || graph_granularity="2m"
 [[ -n ${yaml} ]] || yaml="grafana.yaml"
 
 
-oc new-project grafana
-oc process -f "${yaml}" |oc create -f -
+oc new-project ${grafana_namespace}
+oc adm policy add-cluster-role-to-user system:auth-delegator -z grafana -n ${grafana_namespace}
+oc process -f "${yaml}" --param NAMESPACE=${grafana_namespace} |oc create -f -
 oc rollout status deployment/grafana
-grafana_host="${protocol}$( oc get route grafana -o jsonpath='{.spec.host}' -n grafana)"
+grafana_host="${protocol}$( oc get route grafana -o jsonpath='{.spec.host}' -n ${grafana_namespace})"
 until [ `curl --insecure -H "Content-Type: application/json" -u admin:admin "${grafana_host}/metrics" |grep ^go_goroutines | wc -l` -eq 1 ]
 do
   echo "Waiting for grafana readiness!"
 done
-#oc adm policy add-role-to-user view -z grafana -n "${prometheus_namespace}"
+#oc adm policy add-cluster-role-to-user system:auth-delegator -z grafana -n ${grafana_namespace}
 
 payload="$( mktemp )"
 cat <<EOF >"${payload}"
