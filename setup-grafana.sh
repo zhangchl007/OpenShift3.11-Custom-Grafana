@@ -57,7 +57,7 @@ oc rollout status deployment/grafana
 grafana_host="${protocol}$( oc get route grafana -o jsonpath='{.spec.host}' )"
 until [ `curl --insecure -H "Content-Type: application/json" -u admin:admin "${grafana_host}/metrics" |grep ^go_goroutines | wc -l` -eq 1 ]
 do
-  echo "Grafana is readiness!"
+  echo "Waiting for grafana readiness!"
 done
 #oc adm policy add-role-to-user view -z grafana -n "${prometheus_namespace}"
 
