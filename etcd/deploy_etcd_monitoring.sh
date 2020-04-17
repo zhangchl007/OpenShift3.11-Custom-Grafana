@@ -13,10 +13,27 @@ set -e
 Usage() {
    echo "---------------------------Usage---------------------------------------"
    echo "`basename $0`" 
-   echo "make sure etcd ca.key and ca.cert are under etcd_monitoring"
+   echo "make sure etcd ca.key and ca.cert are under ./etcd_monitoring"
    exit 1
 }
 
+CM_Patch() {
+cat <<EOF > /tmp/etcd-patch.yaml
+    etcd:
+      targets:
+        selector:
+          openshift.io/component: etcd
+          openshift.io/control-plane: "true"
+EOF
+if [ -f /tmp/etcd-patch.yaml ];then
+   oc get cm cluster-monitoring-config -n openshift-monitoring -o yaml --export > /tmp/cluster-monitoring-config.yaml
+   sed -i '3 r /tmp/etcd-patch.yaml' /tmp/cluster-monitoring-config.yaml
+fi 
+if [ -f /tmp/cluster-monitoring-config.yaml ]; then
+   oc get cm cluster-monitoring-config -o yaml -n openshift-monitoring| grep etcd || oc apply -f /tmp/cluster-monitoring-config.yaml -n openshift-monitoring
+   rm /tmp/cluster-monitoring-config.yaml /tmp/etcd-patch.yaml
+fi
+}
 Self_Cert() {
 
 cat <<EOF> openssl.cnf
@@ -61,6 +78,7 @@ else
 fi
 
 if [ -f /etc/etcd/ca/ca.crt ] && [ -f /etc/etcd/ca/ca.key ];then
+     CM_Patch
      cd  etcd_monitoring
      Self_Cert
      Create_Secret
