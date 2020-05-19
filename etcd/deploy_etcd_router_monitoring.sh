@@ -83,6 +83,8 @@ if [ -f /etc/etcd/ca/ca.crt ] && [ -f /etc/etcd/ca/ca.key ];then
      Self_Cert
      Create_Secret
      cd ../ &&rm -rf etcd_monitoring
+     ### create service monitor for OpenShift Router
+     oc apply -f ../router/router-service-monitor.yaml
 else 
      Usage
 fi

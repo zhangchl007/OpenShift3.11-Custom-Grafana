@@ -10,6 +10,7 @@ which was inspired by "origin grafana example"
 - k8s-use-method-cluster
 - k8s-use-method-node
 - OpenShift-Cluster-Overview
+- OpenShift Router
 
 grafana image: docker pull docker.io/grafana/grafana:6.5.0
 
@@ -34,6 +35,12 @@ Execute the script below on OpenShift Master server
 
 ```
 deploy_etcd_monitoring.sh
+
+```
+# Add OpenShift Router servicemonitor for Prometheus Operator
+
+```
+oc apply -f router/router-service-monitor.yaml
 
 ```
 
