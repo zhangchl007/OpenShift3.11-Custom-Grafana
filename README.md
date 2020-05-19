@@ -52,6 +52,7 @@ oc apply -f router/router-service-monitor.yaml
 for more info ```./setup-grafana.sh -h```
 
 ![gui](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/img2.png)
+![router](https://github.com/zhangchl007/OpenShift3.11-Custom-Grafana/blob/master/archive/router.png)
 
 # Grafana data persistance
 
