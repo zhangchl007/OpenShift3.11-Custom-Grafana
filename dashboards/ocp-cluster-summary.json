@@ -9,10 +9,10 @@
     "url": "/d/33h6sBuWz/ocp-cluster-summary",
     "expires": "0001-01-01T00:00:00Z",
     "created": "2020-05-19T02:40:28Z",
-    "updated": "2020-05-19T02:40:28Z",
+    "updated": "2020-05-27T14:47:17Z",
     "updatedBy": "Anonymous",
     "createdBy": "Anonymous",
-    "version": 1,
+    "version": 5,
     "hasAcl": false,
     "isFolder": false,
     "folderId": 0,
@@ -379,7 +379,7 @@
           "y": 15
         },
         "hiddenSeries": false,
-        "id": 121,
+        "id": 190,
         "legend": {
           "alignAsTable": true,
           "avg": true,
@@ -410,7 +410,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "irate(scheduler_scheduling_algorithm_latency_microseconds_sum[5m])",
+            "expr": "irate(scheduler_e2e_scheduling_latency_microseconds_sum[5m])",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -423,7 +423,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Kube-controller algorithm latency",
+        "title": "Kube-controller e2e scheduling latency",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -569,7 +569,7 @@
         },
         "gridPos": {
           "h": 4,
-          "w": 6,
+          "w": 4,
           "x": 3,
           "y": 19
         },
@@ -611,10 +611,11 @@
         "tableColumn": "",
         "targets": [
           {
-            "expr": "etcd_debugging_mvcc_db_total_size_in_bytes{instance=\"192.168.3.132:2379\"}",
+            "expr": "etcd_debugging_mvcc_db_total_size_in_bytes{job=\"etcd\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
+            "legendFormat": "{{instance}} DB Size",
             "refId": "A",
             "step": 600
           }
@@ -658,7 +659,7 @@
         "gridPos": {
           "h": 4,
           "w": 5,
-          "x": 9,
+          "x": 7,
           "y": 19
         },
         "id": 128,
@@ -726,6 +727,103 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "prometheus",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 12,
+          "y": 19
+        },
+        "hiddenSeries": false,
+        "id": 121,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sort": "max",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(rate(scheduler_total_preemption_attempts[1m])) by(pod)",
+            "format": "time_series",
+            "hide": false,
+            "intervalFactor": 2,
+            "legendFormat": "{{pod}}",
+            "refId": "A",
+            "step": 20
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Kube_scheduler 调度器抢占",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 2,
+            "format": "µs",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
         "editable": true,
         "error": false,
         "fill": 0,
@@ -733,9 +831,9 @@
         "grid": {},
         "gridPos": {
           "h": 4,
-          "w": 10,
-          "x": 14,
-          "y": 19
+          "w": 12,
+          "x": 0,
+          "y": 23
         },
         "hiddenSeries": false,
         "id": 136,
@@ -835,25 +933,120 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "prometheus",
-        "editable": true,
-        "error": false,
-        "fill": 5,
+        "description": "",
+        "fill": 1,
         "fillGradient": 0,
         "gridPos": {
           "h": 4,
           "w": 12,
-          "x": 0,
+          "x": 12,
           "y": 23
         },
         "hiddenSeries": false,
-        "id": 140,
+        "id": 132,
         "legend": {
           "alignAsTable": true,
           "avg": true,
           "current": true,
           "max": false,
           "min": false,
-          "rightSide": true,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "irate(etcd_disk_backend_snapshot_duration_seconds_sum{job=\"etcd\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "intervalFactor": 2,
+            "legendFormat": "{{instance}}",
+            "refId": "A",
+            "step": 30
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Snapshot duration",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "s",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "editable": true,
+        "error": false,
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 27
+        },
+        "hiddenSeries": false,
+        "id": 144,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": false,
+          "min": true,
+          "rightSide": false,
           "show": true,
           "total": false,
           "values": true
@@ -871,16 +1064,16 @@
         "renderer": "flot",
         "seriesOverrides": [],
         "spaceLength": 10,
-        "stack": true,
+        "stack": false,
         "steppedLine": false,
         "targets": [
           {
-            "expr": "rate(etcd_network_client_grpc_received_bytes_total{job=\"etcd\"}[5m])",
+            "expr": "sum(rate(etcd_network_peer_received_bytes_total[5m])) by (instance)",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
             "legendFormat": "{{instance}} ",
-            "metric": "etcd_network_client_grpc_received_bytes_total",
+            "metric": "etcd_network_peer_received_bytes_total",
             "refId": "A",
             "step": 120
           }
@@ -889,7 +1082,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Client Traffic In",
+        "title": "Peer Traffic In",
         "tooltip": {
           "msResolution": false,
           "shared": true,
@@ -933,6 +1126,105 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "prometheus",
+        "decimals": null,
+        "editable": true,
+        "error": false,
+        "fill": 0,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 12,
+          "y": 27
+        },
+        "hiddenSeries": false,
+        "id": 146,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(rate(etcd_network_peer_sent_bytes_total[5m])) by (instance)",
+            "format": "time_series",
+            "hide": false,
+            "interval": "",
+            "intervalFactor": 2,
+            "legendFormat": "{{instance}} Peer Traffic Out",
+            "metric": "etcd_network_peer_sent_bytes_total",
+            "refId": "A",
+            "step": 120
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Peer Traffic Out",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 0,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "Bps",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
         "editable": true,
         "error": false,
         "fill": 5,
@@ -940,8 +1232,8 @@
         "gridPos": {
           "h": 4,
           "w": 12,
-          "x": 12,
-          "y": 23
+          "x": 0,
+          "y": 33
         },
         "hiddenSeries": false,
         "id": 142,
@@ -1031,293 +1323,15 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "prometheus",
-        "editable": true,
-        "error": false,
-        "fill": 0,
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 27
-        },
-        "id": 144,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": false,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "options": {},
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum(rate(etcd_network_peer_received_bytes_total[5m])) by (instance)",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "legendFormat": "{{instance}} ",
-            "metric": "etcd_network_peer_received_bytes_total",
-            "refId": "A",
-            "step": 120
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Peer Traffic In",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "Bps",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "prometheus",
-        "decimals": null,
-        "editable": true,
-        "error": false,
-        "fill": 0,
-        "grid": {},
+        "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 8,
           "w": 12,
           "x": 12,
-          "y": 27
+          "y": 33
         },
-        "id": 146,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "connected",
-        "options": {},
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum(rate(etcd_network_peer_sent_bytes_total[5m])) by (instance)",
-            "format": "time_series",
-            "hide": false,
-            "interval": "",
-            "intervalFactor": 2,
-            "legendFormat": "{{instance}} Peer Traffic Out",
-            "metric": "etcd_network_peer_sent_bytes_total",
-            "refId": "A",
-            "step": 120
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Peer Traffic Out",
-        "tooltip": {
-          "msResolution": false,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "Bps",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "prometheus",
-        "description": "",
-        "fill": 1,
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 0,
-          "y": 35
-        },
-        "id": 132,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 1,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {},
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "irate(etcd_disk_backend_snapshot_duration_seconds_sum{job=\"etcd\"}[5m])",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "legendFormat": "{{instance}}",
-            "refId": "A",
-            "step": 30
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Snapshot duration",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "s",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "prometheus",
-        "fill": 1,
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 12,
-          "y": 35
-        },
+        "hiddenSeries": false,
         "id": 148,
         "legend": {
           "alignAsTable": true,
@@ -1333,7 +1347,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -1404,6 +1420,104 @@
         }
       },
       {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "editable": true,
+        "error": false,
+        "fill": 5,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 0,
+          "y": 37
+        },
+        "hiddenSeries": false,
+        "id": 140,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 2,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "rate(etcd_network_client_grpc_received_bytes_total{job=\"etcd\"}[5m])",
+            "format": "time_series",
+            "hide": false,
+            "intervalFactor": 2,
+            "legendFormat": "{{instance}} ",
+            "metric": "etcd_network_client_grpc_received_bytes_total",
+            "refId": "A",
+            "step": 120
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Client Traffic In",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "Bps",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
         "cacheTimeout": null,
         "colorBackground": false,
         "colorValue": true,
@@ -1425,7 +1539,7 @@
           "h": 4,
           "w": 4,
           "x": 0,
-          "y": 42
+          "y": 41
         },
         "id": 152,
         "interval": null,
@@ -1493,12 +1607,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 4,
           "w": 20,
           "x": 4,
-          "y": 42
+          "y": 41
         },
+        "hiddenSeries": false,
         "id": 18,
         "legend": {
           "alignAsTable": true,
@@ -1519,7 +1635,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -1602,7 +1720,7 @@
           "h": 4,
           "w": 4,
           "x": 0,
-          "y": 46
+          "y": 45
         },
         "id": 173,
         "interval": null,
@@ -1670,12 +1788,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 4,
           "w": 20,
           "x": 4,
-          "y": 46
+          "y": 45
         },
+        "hiddenSeries": false,
         "id": 174,
         "legend": {
           "alignAsTable": true,
@@ -1696,7 +1816,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -1779,7 +1901,7 @@
           "h": 4,
           "w": 4,
           "x": 0,
-          "y": 50
+          "y": 49
         },
         "id": 175,
         "interval": null,
@@ -1847,12 +1969,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 4,
           "w": 20,
           "x": 4,
-          "y": 50
+          "y": 49
         },
+        "hiddenSeries": false,
         "id": 176,
         "legend": {
           "alignAsTable": true,
@@ -1873,7 +1997,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -1935,267 +2061,20 @@
         }
       },
       {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "#7eb26d"
-        ],
-        "datasource": "prometheus",
-        "format": "none",
-        "gauge": {
-          "maxValue": 40,
-          "minValue": 0,
-          "show": true,
-          "thresholdLabels": true,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 4,
-          "x": 0,
-          "y": 54
-        },
-        "id": 177,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": true
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "expr": "node_load1{instance=~\"10.41.3.11.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 600
-          }
-        ],
-        "thresholds": "0,3",
-        "title": "master-10.41.3.11 1分钟负载",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "#7eb26d"
-        ],
-        "datasource": "prometheus",
-        "format": "none",
-        "gauge": {
-          "maxValue": 40,
-          "minValue": 0,
-          "show": true,
-          "thresholdLabels": true,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 4,
-          "x": 4,
-          "y": 54
-        },
-        "id": 180,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": true
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "expr": "node_load1{instance=~\"10.41.3.12.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 600
-          }
-        ],
-        "thresholds": "0,3",
-        "title": "master-10.41.3.12 1分钟负载",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "#7eb26d"
-        ],
-        "datasource": "prometheus",
-        "format": "none",
-        "gauge": {
-          "maxValue": 40,
-          "minValue": 0,
-          "show": true,
-          "thresholdLabels": true,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 4,
-          "x": 8,
-          "y": 54
-        },
-        "id": 179,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": true
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "expr": "node_load1{instance=~\"10.41.3.13.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 600
-          }
-        ],
-        "thresholds": "0,3",
-        "title": "master-10.41.3.13 1分钟负载",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
         "aliasColors": {},
         "bars": false,
         "dashLength": 10,
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 4,
           "w": 12,
-          "x": 12,
-          "y": 54
+          "x": 0,
+          "y": 53
         },
+        "hiddenSeries": false,
         "id": 19,
         "legend": {
           "alignAsTable": true,
@@ -2214,7 +2093,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -2225,348 +2106,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "node_load1{instance=~\"^10.41.3.11.*|^10.41.3.12.*|^10.41.3.13.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "legendFormat": "{{instance}}",
-            "refId": "A",
-            "step": 20
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Master Server 1分钟负载",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "#7eb26d"
-        ],
-        "datasource": "prometheus",
-        "format": "none",
-        "gauge": {
-          "maxValue": 40,
-          "minValue": 0,
-          "show": true,
-          "thresholdLabels": true,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 4,
-          "x": 0,
-          "y": 58
-        },
-        "id": 181,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": true
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "expr": "node_load5{instance=~\"10.41.3.11.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 600
-          }
-        ],
-        "thresholds": "0,3",
-        "title": "master-10.41.3.11 5分钟负载",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "#7eb26d"
-        ],
-        "datasource": "prometheus",
-        "format": "none",
-        "gauge": {
-          "maxValue": 40,
-          "minValue": 0,
-          "show": true,
-          "thresholdLabels": true,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 4,
-          "x": 4,
-          "y": 58
-        },
-        "id": 182,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": true
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "expr": "node_load5{instance=~\"10.41.3.12.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 600
-          }
-        ],
-        "thresholds": "0,3",
-        "title": "master-10.41.3.12 5分钟负载",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "cacheTimeout": null,
-        "colorBackground": false,
-        "colorValue": true,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "#7eb26d"
-        ],
-        "datasource": "prometheus",
-        "format": "none",
-        "gauge": {
-          "maxValue": 40,
-          "minValue": 0,
-          "show": true,
-          "thresholdLabels": true,
-          "thresholdMarkers": true
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 4,
-          "x": 8,
-          "y": 58
-        },
-        "id": 183,
-        "interval": null,
-        "links": [],
-        "mappingType": 1,
-        "mappingTypes": [
-          {
-            "name": "value to text",
-            "value": 1
-          },
-          {
-            "name": "range to text",
-            "value": 2
-          }
-        ],
-        "maxDataPoints": 100,
-        "nullPointMode": "connected",
-        "nullText": null,
-        "options": {},
-        "postfix": "",
-        "postfixFontSize": "50%",
-        "prefix": "",
-        "prefixFontSize": "50%",
-        "rangeMaps": [
-          {
-            "from": "null",
-            "text": "N/A",
-            "to": "null"
-          }
-        ],
-        "sparkline": {
-          "fillColor": "rgba(31, 118, 189, 0.18)",
-          "full": false,
-          "lineColor": "rgb(31, 120, 193)",
-          "show": true
-        },
-        "tableColumn": "",
-        "targets": [
-          {
-            "expr": "node_load5{instance=~\"10.41.3.13.*\"}",
-            "format": "time_series",
-            "hide": false,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 600
-          }
-        ],
-        "thresholds": "0,3",
-        "title": "master-10.41.3.13 5分钟负载",
-        "type": "singlestat",
-        "valueFontSize": "80%",
-        "valueMaps": [
-          {
-            "op": "=",
-            "text": "N/A",
-            "value": "null"
-          }
-        ],
-        "valueName": "current"
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "prometheus",
-        "fill": 1,
-        "gridPos": {
-          "h": 4,
-          "w": 12,
-          "x": 12,
-          "y": 58
-        },
-        "id": 184,
-        "legend": {
-          "alignAsTable": true,
-          "avg": false,
-          "current": true,
-          "max": false,
-          "min": false,
-          "rightSide": true,
-          "show": true,
-          "sort": "current",
-          "sortDesc": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 1,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {},
-        "percentage": false,
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "node_load5{instance=~\"^10.41.3.11.*|^10.41.3.12.*|^10.41.3.13.*\"}",
+            "expr": "sum(label_replace(node_load5{instance!=\"\"},\"host_ip\",\"$1\",\"instance\",\"(.*):(.*)\") and on (host_ip) avg(kube_pod_info{node!=\"\"}) by( node, host_ip) * on (node) group_left(instance) kube_node_labels{label_node_role_kubernetes_io_master=\"true\"}) by (host_ip)",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -2623,12 +2163,110 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 12,
+          "y": 53
+        },
+        "hiddenSeries": false,
+        "id": 184,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sort": "current",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "dataLinks": []
+        },
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(label_replace(node_load15{instance!=\"\"},\"host_ip\",\"$1\",\"instance\",\"(.*):(.*)\") and on (host_ip) avg(kube_pod_info{node!=\"\"}) by( node, host_ip) * on (node) group_left(instance) kube_node_labels{label_node_role_kubernetes_io_master=\"true\"}) by (host_ip)",
+            "format": "time_series",
+            "hide": false,
+            "intervalFactor": 2,
+            "legendFormat": "{{instance}}",
+            "refId": "A",
+            "step": 20
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Master Server 15分钟负载",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 5,
           "w": 24,
           "x": 0,
-          "y": 62
+          "y": 57
         },
+        "hiddenSeries": false,
         "id": 20,
         "legend": {
           "alignAsTable": true,
@@ -2647,7 +2285,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -2715,12 +2355,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 5,
           "w": 24,
           "x": 0,
-          "y": 67
+          "y": 62
         },
+        "hiddenSeries": false,
         "id": 185,
         "legend": {
           "alignAsTable": true,
@@ -2739,7 +2381,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -2807,12 +2451,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 5,
           "w": 24,
           "x": 0,
-          "y": 72
+          "y": 67
         },
+        "hiddenSeries": false,
         "id": 186,
         "legend": {
           "alignAsTable": true,
@@ -2831,7 +2477,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -2899,12 +2547,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 8,
           "w": 24,
           "x": 0,
-          "y": 77
+          "y": 72
         },
+        "hiddenSeries": false,
         "id": 17,
         "legend": {
           "alignAsTable": true,
@@ -2921,7 +2571,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -3000,12 +2652,14 @@
         "dashes": false,
         "datasource": "prometheus",
         "fill": 1,
+        "fillGradient": 0,
         "gridPos": {
           "h": 8,
           "w": 24,
           "x": 0,
-          "y": 85
+          "y": 80
         },
+        "hiddenSeries": false,
         "id": 187,
         "legend": {
           "alignAsTable": true,
@@ -3022,7 +2676,9 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "null",
-        "options": {},
+        "options": {
+          "dataLinks": []
+        },
         "percentage": false,
         "pointradius": 5,
         "points": false,
@@ -3095,7 +2751,7 @@
         }
       }
     ],
-    "refresh": "10s",
+    "refresh": false,
     "schemaVersion": 21,
     "style": "dark",
     "tags": [],
@@ -3135,7 +2791,7 @@
     "timezone": "",
     "title": "OCP Cluster Summary",
     "uid": "33h6sBuWz",
-    "version": 1
+    "version": 5
   },
   "overwrite": true
 }
