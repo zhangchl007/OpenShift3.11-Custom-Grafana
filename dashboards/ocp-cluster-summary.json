@@ -9,10 +9,10 @@
     "url": "/d/33h6sBuWz/ocp-cluster-summary",
     "expires": "0001-01-01T00:00:00Z",
     "created": "2020-05-19T02:40:28Z",
-    "updated": "2020-05-27T14:47:17Z",
+    "updated": "2020-05-27T15:00:58Z",
     "updatedBy": "Anonymous",
     "createdBy": "Anonymous",
-    "version": 5,
+    "version": 6,
     "hasAcl": false,
     "isFolder": false,
     "folderId": 0,
@@ -2110,7 +2110,7 @@
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
-            "legendFormat": "{{instance}}",
+            "legendFormat": "{{host_ip}}",
             "refId": "A",
             "step": 20
           }
@@ -2791,7 +2791,7 @@
     "timezone": "",
     "title": "OCP Cluster Summary",
     "uid": "33h6sBuWz",
-    "version": 5
+    "version": 6
   },
   "overwrite": true
 }
