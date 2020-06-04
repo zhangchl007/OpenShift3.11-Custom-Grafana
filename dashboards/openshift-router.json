@@ -8,11 +8,11 @@
     "slug": "openshift-router",
     "url": "/d/wUkIgkhZk/openshift-router",
     "expires": "0001-01-01T00:00:00Z",
-    "created": "2020-05-19T10:27:10Z",
-    "updated": "2020-05-19T10:27:10Z",
+    "created": "2020-06-04T07:24:51Z",
+    "updated": "2020-06-04T08:15:48Z",
     "updatedBy": "Anonymous",
     "createdBy": "Anonymous",
-    "version": 1,
+    "version": 2,
     "hasAcl": false,
     "isFolder": false,
     "folderId": 0,
@@ -39,7 +39,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": null,
-    "iteration": 1589531006247,
+    "iteration": 1591256055467,
     "links": [],
     "panels": [
       {
@@ -104,7 +104,7 @@
         "tableColumn": "",
         "targets": [
           {
-            "expr": "haproxy_up{instance=~\"$host:$port\"}",
+            "expr": "sum(haproxy_up{instance=~\"$host:$port\"})",
             "format": "time_series",
             "intervalFactor": 1,
             "refId": "A"
@@ -272,7 +272,7 @@
         "tableColumn": "",
         "targets": [
           {
-            "expr": "(time() - haproxy_process_start_time_seconds{instance=~\"$host:$port\"}) / 3600",
+            "expr": "sum(time() - haproxy_process_start_time_seconds{instance=~\"$host:$port\"}) / 3600",
             "format": "time_series",
             "intervalFactor": 1,
             "refId": "A"
@@ -1377,7 +1377,7 @@
     "timezone": "",
     "title": "OpenShift Router",
     "uid": "wUkIgkhZk",
-    "version": 1
+    "version": 2
   },
   "overwrite": true
 }
