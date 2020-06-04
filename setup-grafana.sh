@@ -52,6 +52,7 @@ mv "${dashboard_file}.bak" "${dashboard_file}"
 
 
 oc new-project ${grafana_namespace}
+oc annotate namespace/grafana2 openshift.io/node-selector=""
 oc adm policy add-cluster-role-to-user system:auth-delegator -z grafana -n ${grafana_namespace}
 oc process -f "${yaml}" --param NAMESPACE=${grafana_namespace} |oc create -f -
 oc rollout status deployment/grafana
