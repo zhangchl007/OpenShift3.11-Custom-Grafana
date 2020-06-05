@@ -9,10 +9,10 @@
     "url": "/d/wUkIgkhZk/openshift-router",
     "expires": "0001-01-01T00:00:00Z",
     "created": "2020-06-04T07:24:51Z",
-    "updated": "2020-06-04T08:15:48Z",
+    "updated": "2020-06-05T03:04:40Z",
     "updatedBy": "Anonymous",
     "createdBy": "Anonymous",
-    "version": 2,
+    "version": 3,
     "hasAcl": false,
     "isFolder": false,
     "folderId": 0,
@@ -39,7 +39,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": null,
-    "iteration": 1591256055467,
+    "iteration": 1591325660682,
     "links": [],
     "panels": [
       {
@@ -673,10 +673,10 @@
         "targets": [
           {
             "datasource": "prometheus",
-            "expr": "sum(irate(haproxy_frontend_http_responses_total{frontend=~\"fe_no_sni|fe_sni|public|public_ssl\",instance=~\"192.168.0.55:1936\"}[5m])) by (code)",
+            "expr": "sum(haproxy_frontend_http_responses_total{code=~\"5xx|4xx\",frontend=~\"fe_no_sni|fe_sni|public|public_ssl\"})/sum(haproxy_frontend_http_responses_total{frontend=~\"fe_no_sni|fe_sni|public|public_ssl\"})",
             "format": "time_series",
             "intervalFactor": 1,
-            "legendFormat": "Frontend {{ code }}",
+            "legendFormat": "{{code}}",
             "refId": "A"
           }
         ],
@@ -684,7 +684,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Frontend状态码统计",
+        "title": "Frontend状态码错误率",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -1377,7 +1377,7 @@
     "timezone": "",
     "title": "OpenShift Router",
     "uid": "wUkIgkhZk",
-    "version": 2
+    "version": 3
   },
   "overwrite": true
 }
